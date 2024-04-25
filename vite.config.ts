@@ -1,13 +1,13 @@
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
+import dts from 'vite-plugin-dts';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   build: {
     lib: {
-      entry: './src/main.ts',
-      name: 'useCanvasRecorder',
-      fileName: 'useCanvasRecorder',
+      entry: './src/index.ts',
+      name: 'r3f-canvas-record',
+      fileName: 'index',
     },
     rollupOptions: {
       external: ['react'],
@@ -18,5 +18,5 @@ export default defineConfig({
       },
     },
   },
-  plugins: [react()],
+  plugins: [dts(), react()],
 });

@@ -11,8 +11,10 @@
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
     "jsx": "react-jsx",
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "./dist",
 
     /* Linting */
     "strict": true,
@@ -24,6 +26,6 @@
       "canvas-record": ["./node_modules/canvas-record/types/index"]
     }
   },
-  "include": ["src", "example"],
+  "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
