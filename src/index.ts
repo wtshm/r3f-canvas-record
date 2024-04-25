@@ -5,10 +5,7 @@ let canvasRecorder: Recorder | null = null;
 let t = 0;
 let raf: number | null = null;
 
-export default function useCanvasRecorder(
-  state: RootState,
-  options?: RecorderOptions,
-) {
+export function useCanvasRecorder(state: RootState, options?: RecorderOptions) {
   const startRecording = async () => {
     await reset();
     canvasRecorder = new Recorder(state.gl.getContext(), {

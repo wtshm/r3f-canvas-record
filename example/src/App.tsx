@@ -4,7 +4,7 @@ import { useControls, button } from 'leva';
 import { useEffect, useRef } from 'react';
 import React from 'react';
 import * as THREE from 'three';
-import useCanvasRecorder from '../../src';
+import { useCanvasRecorder } from '../../src';
 
 const extensions = [
   ...new Set(
