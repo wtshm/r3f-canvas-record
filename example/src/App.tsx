@@ -1,9 +1,10 @@
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import { Encoders } from 'canvas-record';
 import { useControls, button } from 'leva';
 import { useEffect, useRef } from 'react';
+import React from 'react';
 import * as THREE from 'three';
-import useCanvasRecorder from '../../src/main';
+import useCanvasRecorder from '../../src';
 
 const extensions = [
   ...new Set(
@@ -25,8 +26,10 @@ const targets = [
 const detailsEl = document.getElementById('details')!;
 
 export const App = () => {
+  const state = useThree();
+
   const { startRecording, stopRecording, isRecording, getStats } =
-    useCanvasRecorder({
+    useCanvasRecorder(state, {
       duration: 3,
     });
 

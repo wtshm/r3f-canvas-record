@@ -1,22 +1,23 @@
-import { useThree } from '@react-three/fiber';
+import { RootState } from '@react-three/fiber';
 import { Recorder, RecorderStatus, RecorderOptions } from 'canvas-record';
 
 let canvasRecorder: Recorder | null = null;
 let t = 0;
 let raf: number | null = null;
 
-export default function useCanvasRecorder(options?: RecorderOptions) {
-  const { gl, setFrameloop, advance, frameloop: initFrameloop } = useThree();
-
+export default function useCanvasRecorder(
+  state: RootState,
+  options?: RecorderOptions,
+) {
   const startRecording = async () => {
     await reset();
-    canvasRecorder = new Recorder(gl.getContext(), {
+    canvasRecorder = new Recorder(state.gl.getContext(), {
       ...Recorder.defaultOptions,
       ...options,
       encoderOptions: options?.encoderOptions || {},
     });
     await canvasRecorder.start();
-    setFrameloop('never');
+    state.setFrameloop('never');
     tick();
   };
 
@@ -29,17 +30,15 @@ export default function useCanvasRecorder(options?: RecorderOptions) {
   const getStats = () => canvasRecorder?.stats;
 
   const reset = async () => {
-    console.log('reset', raf, canvasRecorder);
     if (raf !== null) {
       cancelAnimationFrame(raf);
       raf = null;
     }
     if (canvasRecorder !== null) {
-      console.log('reset');
       await canvasRecorder.stop();
       await canvasRecorder.dispose();
       canvasRecorder = null;
-      setFrameloop(initFrameloop);
+      state.setFrameloop(state.frameloop);
     }
     t = 0;
   };
@@ -51,7 +50,7 @@ export default function useCanvasRecorder(options?: RecorderOptions) {
 
     if (canvasRecorder.status !== RecorderStatus.Recording) return;
 
-    advance(t);
+    state.advance(t);
     await canvasRecorder.step();
     t += 1 / (options?.frameRate || Recorder.defaultOptions.frameRate!);
 
