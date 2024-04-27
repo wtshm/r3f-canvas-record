@@ -43,7 +43,10 @@ export function useCanvasRecorder(state: RootState, options?: RecorderOptions) {
   const tick = async () => {
     if (!canvasRecorder) return;
 
-    if (canvasRecorder.frame >= canvasRecorder.frameTotal) reset();
+    if (canvasRecorder.frame >= canvasRecorder.frameTotal) {
+      await reset();
+      return;
+    }
 
     if (canvasRecorder.status !== RecorderStatus.Recording) return;
 
