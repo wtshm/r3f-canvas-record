@@ -1,7 +1,22 @@
 {
   "name": "r3f-canvas-record",
-  "private": true,
-  "version": "0.0.0",
+  "private": false,
+  "version": "0.0.1",
+  "description": "Hooks for recording a canvas in @react-three/fiber with canvas-record",
+  "keywords": [
+    "react-three-fiber",
+    "canvas-record"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/wtshm/r3f-canvas-record",
+  "bugs": {
+    "url": "https://github.com/wtshm/r3f-canvas-record/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wtshm/r3f-canvas-record"
+  },
+  "author": "Kenta Watashima",
   "type": "module",
   "files": [
     "dist"
