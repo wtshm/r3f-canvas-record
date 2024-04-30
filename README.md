@@ -37,9 +37,12 @@ function App() {
   return (
     <Canvas
       gl={{
-        preserveDrawingBuffer: true, // Mandatory
+        // Set preserveDrawingBuffer to true
+        preserveDrawingBuffer: true,
       }}
     >
+      {/* Set clear color to record properly */}
+      <color attach="background" args={['#fff']} />
       <Scene />
     </Canvas>
   );
