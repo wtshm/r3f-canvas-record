@@ -1,9 +1,24 @@
 import { RootState } from '@react-three/fiber';
-import { Recorder, RecorderStatus, RecorderOptions } from 'canvas-record';
+import { Recorder, RecorderStatus } from 'canvas-record';
 
 let canvasRecorder: Recorder | null = null;
 let t = 0;
 let raf: number | null = null;
+
+type onStatusChangeCb = (RecorderStatus: number) => any;
+
+type RecorderOptions = {
+  name?: string;
+  duration?: number;
+  frameRate?: number;
+  download?: boolean;
+  extension?: string;
+  target?: string;
+  encoder?: object;
+  encoderOptions?: object;
+  muxerOptions?: object;
+  onStatusChange?: onStatusChangeCb;
+};
 
 export function useCanvasRecorder(state: RootState, options?: RecorderOptions) {
   const startRecording = async () => {
