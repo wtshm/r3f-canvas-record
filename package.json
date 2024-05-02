@@ -1,7 +1,7 @@
 {
   "name": "r3f-canvas-record",
   "private": false,
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "React hook for recording a canvas in @react-three/fiber using canvas-record",
   "keywords": [
     "react-three-fiber",
