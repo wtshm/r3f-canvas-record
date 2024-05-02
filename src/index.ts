@@ -7,7 +7,7 @@ let raf: number | null = null;
 
 type onStatusChangeCb = (RecorderStatus: number) => any;
 
-type RecorderOptions = {
+export type RecorderOptions = {
   name?: string;
   duration?: number;
   frameRate?: number;

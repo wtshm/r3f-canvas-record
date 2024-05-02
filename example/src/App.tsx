@@ -1,87 +1,36 @@
-import { useFrame, useThree } from '@react-three/fiber';
-import { Encoders } from 'canvas-record';
+import { useFrame, Canvas } from '@react-three/fiber';
+import { useThree } from '@react-three/fiber';
 import { useControls, button } from 'leva';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import React from 'react';
 import * as THREE from 'three';
-import { useCanvasRecorder } from '../../src';
+import { RecorderOptions, useCanvasRecorder } from '../../src';
 
-const extensions = [
-  ...new Set(
-    Object.values(Encoders).flatMap((Encoder) => Encoder.supportedExtensions),
-  ),
-];
-
-const encoderOptions = [
-  '',
-  ...Object.keys(Encoders).filter((e) => e !== 'Encoder'),
-];
-
-const targets = [
-  ...new Set(
-    Object.values(Encoders).flatMap((Encoder) => Encoder.supportedTargets),
-  ),
-];
-
-const detailsEl = document.getElementById('details')!;
-
-export const App = () => {
+function Recorder(options: RecorderOptions) {
   const state = useThree();
 
-  const { startRecording, stopRecording, isRecording, getStats } =
-    useCanvasRecorder(state, {
-      duration: 3,
-    });
+  const { startRecording, stopRecording } = useCanvasRecorder(state, options);
 
+  useControls({
+    '⏺ start': button(() => {
+      startRecording();
+    }),
+    '⏹ stop': button(() => {
+      stopRecording();
+    }),
+  });
+
+  return null;
+}
+
+function Scene() {
   const ref = useRef<THREE.Mesh>(null);
 
-  useFrame((_state, delta) => {
+  useFrame((state, delta) => {
     if (ref.current) {
       ref.current.rotation.x += delta;
       ref.current.rotation.y += delta;
     }
-  });
-
-  useEffect(() => {
-    function updateStatus() {
-      if (isRecording()) {
-        const stats = getStats();
-        detailsEl.innerText = stats?.detail ?? '';
-      }
-      requestAnimationFrame(updateStatus);
-    }
-    updateStatus();
-  }, []);
-
-  useControls({
-    extensions: {
-      options: extensions,
-    },
-    encoder: {
-      options: encoderOptions,
-    },
-    target: {
-      options: targets,
-    },
-    duration: {
-      value: 10,
-      step: 1,
-      min: 1,
-      max: 30,
-    },
-    frameRate: {
-      value: 30,
-      step: 1,
-      min: 1,
-      max: 60,
-    },
-    filename: '',
-    '⏺ Start': button(() => {
-      startRecording();
-    }),
-    '⏹ Stop': button(() => {
-      stopRecording();
-    }),
   });
 
   return (
@@ -93,5 +42,19 @@ export const App = () => {
         <meshStandardMaterial />
       </mesh>
     </>
+  );
+}
+
+export const App = () => {
+  return (
+    <Canvas
+      gl={{
+        preserveDrawingBuffer: true,
+      }}
+    >
+      <color attach={'background'} args={['#f0f0f0']} />
+      <Scene />
+      <Recorder frameRate={60} duration={3} />
+    </Canvas>
   );
 };
