@@ -11,26 +11,25 @@ npm install r3f-canvas-record
 ## Usage
 
 ```jsx
-import { Html } from '@react-three/drei';
 import { Canvas, useThree } from '@react-three/fiber';
-import { useCanvasRecorder } from 'r3f-canvas-record';
+import { useControls, button } from 'leva';
+import { useCanvasRecorder, RecorderOptions } from 'r3f-canvas-record';
 
-function Scene() {
+function Recorder(options: RecorderOptions) {
   const state = useThree();
 
-  const { startRecording, stopRecording } = useCanvasRecorder(state, {
-    // Options are here
+  const { startRecording, stopRecording } = useCanvasRecorder(state, options);
+
+  useControls({
+    '⏺ start': button(() => {
+      startRecording();
+    }),
+    '⏹ stop': button(() => {
+      stopRecording();
+    }),
   });
 
-  return (
-    <>
-      {/* Some content */}
-      <Html>
-        <button onClick={startRecording}>Start recording</button>
-        <button onClick={stopRecording}>Stop recording</button>
-      </Html>
-    </>
-  );
+  return null;
 }
 
 function App() {
@@ -43,7 +42,8 @@ function App() {
     >
       {/* Set clear color to record properly */}
       <color attach="background" args={['#fff']} />
-      <Scene />
+      {/* Add your scene components to render here */}
+      <Recorder frameRate={60} duration={3} />
     </Canvas>
   );
 }
