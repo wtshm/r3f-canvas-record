@@ -52,7 +52,7 @@ export const App = () => {
         preserveDrawingBuffer: true,
       }}
     >
-      <color attach={'background'} args={['#f0f0f0']} />
+      <color attach="background" args={['#f0f0f0']} />
       <Scene />
       <Recorder frameRate={60} duration={3} />
     </Canvas>
