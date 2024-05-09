@@ -13,7 +13,7 @@ npm install r3f-canvas-record
 ```jsx
 import { Canvas, useThree } from '@react-three/fiber';
 import { useControls, button } from 'leva';
-import { useCanvasRecorder, RecorderOptions } from 'r3f-canvas-record';
+import { RecorderOptions, useCanvasRecorder } from 'r3f-canvas-record';
 
 function Recorder(options: RecorderOptions) {
   const state = useThree();
