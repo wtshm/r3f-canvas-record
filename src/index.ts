@@ -1,4 +1,4 @@
-import { RootState } from '@react-three/fiber';
+import type { RootState } from '@react-three/fiber';
 import { Recorder, RecorderStatus } from 'canvas-record';
 
 let canvasRecorder: Recorder | null = null;

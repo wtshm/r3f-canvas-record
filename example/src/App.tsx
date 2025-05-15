@@ -1,10 +1,8 @@
-import { useFrame, Canvas } from '@react-three/fiber';
-import { useThree } from '@react-three/fiber';
-import { useControls, button } from 'leva';
-import { useRef } from 'react';
-import React from 'react';
-import * as THREE from 'three';
-import { RecorderOptions, useCanvasRecorder } from '../../src';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { button, useControls } from 'leva';
+import React, { useRef } from 'react';
+import type * as THREE from 'three';
+import { type RecorderOptions, useCanvasRecorder } from '../../src';
 
 const statsEl = document.getElementById('stats');
 
