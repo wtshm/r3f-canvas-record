@@ -6,10 +6,13 @@ import React from 'react';
 import * as THREE from 'three';
 import { RecorderOptions, useCanvasRecorder } from '../../src';
 
+const statsEl = document.getElementById('stats');
+
 function Recorder(options: RecorderOptions) {
   const state = useThree();
 
-  const { startRecording, stopRecording } = useCanvasRecorder(state, options);
+  const { startRecording, stopRecording, isRecording, getStats } =
+    useCanvasRecorder(state, options);
 
   useControls({
     '⏺ start': button(() => {
@@ -18,6 +21,12 @@ function Recorder(options: RecorderOptions) {
     '⏹ stop': button(() => {
       stopRecording();
     }),
+  });
+
+  useFrame(() => {
+    if (statsEl && isRecording()) {
+      statsEl.innerText = `${getStats()?.detail}`;
+    }
   });
 
   return null;
